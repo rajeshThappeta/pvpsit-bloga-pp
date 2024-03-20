@@ -1,0 +1,9 @@
+post http://localhost:4000/author-api/register
+Content-Type: application/json
+
+{
+    "role":"author",
+    "username":"vikas",
+    "password":"vikas",
+    "email":"vikas@email.com"
+}
