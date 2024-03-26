@@ -39,7 +39,7 @@ userApp.post("/login", async (req, res) => {
   let dbUser = await usersCollection.findOne({ username: credObj.username });
   //if user not found
   if (dbUser === null) {
-    res.send({ message: "Invalid userbame" });
+    res.send({ message: "Invalid username" });
   } else {
     let result = await bcryptjs.compare(credObj.password, dbUser.password);
     //if passwords not matrched
@@ -50,6 +50,7 @@ userApp.post("/login", async (req, res) => {
       let signedToken = jwt.sign({ username: dbUser.username }, "abcdef", {
         expiresIn: 120,
       });
+      delete dbUser.password;
       //send token as res
       res.send({ message: "login success", token: signedToken, user: dbUser });
     }
